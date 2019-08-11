@@ -10,8 +10,8 @@ image.LOAD_TRUNCATED_IMAGES = True
 model = VGG16(weights='imagenet', include_top=False)
 
 # Variables
-imdir = 'C:/tum/a1/'
-targetdir = "C:/clusters/"
+imdir = 'C:/indir/' # DIR containing images
+targetdir = "C:/outdir/" # DIR to copy clustered images to
 number_clusters = 10
 
 # Loop over files and get features
