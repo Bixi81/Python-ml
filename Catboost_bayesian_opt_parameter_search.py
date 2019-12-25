@@ -52,7 +52,7 @@ eval_dataset = Pool(data=xtest,
 # Function is used for optimisation, so arguments in function must match arguments in params and pbounds below
 def cbfunc(border_count,l2_leaf_reg, depth, learning_rate):
     params = {
-        'eval_metric':'MAE',
+        'eval_metric':'MAE', # using MAE here, could also be RMSE or MSE
         'early_stopping_rounds': esrounds,
         'num_boost_round': brounds,
         'use_best_model': True,
