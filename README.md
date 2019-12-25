@@ -4,6 +4,9 @@
 1. [Classification on Iris data](https://github.com/Bixi81/Python-ml/blob/master/boosting_classification_iris.py)
 2. [Regression on Boston housing data](https://github.com/Bixi81/Python-ml/blob/master/boosting_regression_boston.py)
 
+## Boosting (Catboost)
+1. [Regression model with Bayesian Optimisation for hyperparameter tuning](https://github.com/Bixi81/Python-ml/blob/master/Catboost_bayesian_opt_parameter_search.py)
+
 ## Keras (neural nets on Tensorflow)
 1. [Regression on Boston Data](https://github.com/Bixi81/Python-ml/blob/master/keras_regression_boston.py)
 2. [Image classification using a pretrained model (VGG16)](https://github.com/Bixi81/Python-ml/blob/master/keras_pretrained_imagerec_multiclass.py)
