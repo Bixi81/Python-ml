@@ -16,3 +16,6 @@
 ## Unsupervized
 1. [Unsupervized image classification (VGG16 based)](https://github.com/Bixi81/Python-ml/blob/master/image_clustering_unsupervized.py)
 2. [Split audio by silent parts](https://github.com/Bixi81/Python-ml/blob/master/crop_audio_by_silent_parts.py)
+
+## Other
+1. [Randomly sample files from directory](https://github.com/Bixi81/Python-ml/blob/master/randomly_sample_files.py)
