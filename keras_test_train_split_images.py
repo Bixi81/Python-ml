@@ -39,9 +39,9 @@ for p in paths:
     # train samples
     filelist = os.listdir(p)
     filelist = filelist[:maxsamples]
-    tindex = int(trainsize*len(filelist))
-    trainfiles = filelist[:tindex]
-    testfiles = filelist[tindex:]
+    # Randomly select files
+    trainfiles = np.random.choice(filelist, int(len(filelist)*trainsize))
+    testfiles = [x for x in filelist if x not in trainfiles]
     # train
     for f in trainfiles:
         copyfile(p + "/"+  f, str(tdir) + "/train/" + str(classname) + "/" + f)
