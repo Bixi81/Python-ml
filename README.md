@@ -20,3 +20,4 @@
 
 ## Other
 1. [Randomly sample files from directory](https://github.com/Bixi81/Python-ml/blob/master/randomly_sample_files.py)
+2. [Text classification (minimal example)](https://github.com/Bixi81/Python-ml/blob/master/text_classification.py)
