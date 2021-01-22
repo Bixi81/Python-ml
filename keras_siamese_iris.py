@@ -153,7 +153,7 @@ def build_base_network(input_shape):
     #seq.add(Dropout(0.05))
     seq.add(Dense(8, activation='relu'))
     #seq.add(Dropout(0.05))
-    seq.add(Dense(1, activation='relu'))
+    seq.add(Dense(2, activation='relu'))
     seq.add(Flatten())
     return seq
 
@@ -185,6 +185,7 @@ def contrastive_loss(y_true, y_pred):
 # Define model and eucl. distance
 distance = Lambda(euclidean_distance, output_shape=eucl_dist_output_shape)([feat_vecs_a, feat_vecs_b])
 model = Model(input=[img_a, img_b], output=distance)
+### FOR KERAS 2 change to: inputs=[img_a, img_b], outputs=distance
 
 ## Train
 model.compile(loss=contrastive_loss, optimizer=keras.optimizers.RMSprop(lr=0.001))
