@@ -13,6 +13,7 @@
 3. [Binary image classification using a pretrained model (VGG16)](https://github.com/Bixi81/Python-ml/blob/master/keras_pretrained_imagerec_binaryclass.py)
 4. [Tool: Train-test split for images to be used in a data generator function](https://github.com/Bixi81/Python-ml/blob/master/keras_test_train_split_images.py)
 5. [Keras multi-output model using the functional API](https://github.com/Bixi81/Python-ml/blob/master/keras_multitarget_functionalAPI.py)
+6. [Keras siamese network on iris data](https://github.com/Bixi81/Python-ml/blob/master/keras_siamese_iris.py)
 
 ## Unsupervized
 1. [Unsupervized image classification (VGG16 based)](https://github.com/Bixi81/Python-ml/blob/master/image_clustering_unsupervized.py)
