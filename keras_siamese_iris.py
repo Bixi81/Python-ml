@@ -24,6 +24,7 @@ from keras.regularizers import l2
 from keras import backend as K
 from keras.models import Model
 from keras import optimizers
+from keras import backend as K
 
 ##########################################
 # Load iris data as pandas df
@@ -59,6 +60,7 @@ def makepairs(dataframe,npairs):
     # Adjust npairs => npairs = ( npairs / 2 ) / len(set(dataframe['target']))
     nn = 0
     while nn < npairs:
+        print("Pair %s" %nn, end="\r")
         # One pair true/false for each class
         for c in set(dataframe['target']):
             ## SAME CLASS
@@ -147,13 +149,17 @@ early_stopping = EarlyStopping(monitor='loss', patience=5, mode='auto', restore_
 
 def build_base_network(input_shape):
     seq = Sequential()
-    seq.add(Dense(32, activation='relu',input_shape=input_shape, kernel_initializer=keras.initializers.TruncatedNormal(mean=0.0, stddev=0.01, seed=None)))
+    seq.add(Dense(3, activation='relu',input_shape=input_shape, 
+        kernel_initializer=keras.initializers.TruncatedNormal(mean=0.0, stddev=0.01, seed=None)
+        #bias_initializer=keras.initializers.TruncatedNormal(mean=0.5, stddev=0.05, seed=None)
+        ))
+    
     #seq.add(Dropout(0.05))
     #seq.add(Dense(32, activation='relu'))
     #seq.add(Dropout(0.05))
-    seq.add(Dense(8, activation='relu'))
+    #seq.add(Dense(8, activation='relu'))
     #seq.add(Dropout(0.05))
-    seq.add(Dense(2, activation='relu'))
+    #seq.add(Dense(8, activation='relu'))
     seq.add(Flatten())
     return seq
 
@@ -184,34 +190,33 @@ def contrastive_loss(y_true, y_pred):
 
 # Define model and eucl. distance
 distance = Lambda(euclidean_distance, output_shape=eucl_dist_output_shape)([feat_vecs_a, feat_vecs_b])
+
 model = Model(input=[img_a, img_b], output=distance)
-### FOR KERAS 2 change to: inputs=[img_a, img_b], outputs=distance
+print(model.summary())
 
 ## Train
 model.compile(loss=contrastive_loss, optimizer=keras.optimizers.RMSprop(lr=0.001))
 img_1 = xtrain[:, 0]
 img_2 = xtrain[:, 1] 
 
-model.summary()
-
 model.fit([img_1, img_2], ytrain, 
             validation_split=.2, 
             batch_size=32, 
             verbose=1, 
-            epochs=300,
+            epochs=500,
             callbacks=[early_stopping])
 
 ##########################################
 ### Predict test data
 pred = model.predict([xtest[:,0], xtest[:,1]])
+
 # Pred to DF with labels
 result = pd.DataFrame(data=pred)
 result['true']=ytest
 result.columns = ['dist', 'true']
-#print(result)
 
 ### Predict some data line by line and compare similarity to p observations with known class
-for p in [20,100]:
+for p in [25]:
     true=0
     false=0
     total=0
@@ -222,12 +227,15 @@ for p in [20,100]:
         result3 = pd.DataFrame(data=pred3)
         result3['label']=truelabel
         result3.columns = ['dist', 'label']
-        agg = result3.groupby(['label'], as_index=False).mean() #.sort_values('dist')
+        agg = result3.groupby(['label'], as_index=False).median() #.sort_values('dist')
         predicted_class = agg.loc[agg['dist'].idxmin()]['label']
         total = total+1
         if testlabel.values[0] == predicted_class:
             true = true+1
         else:
             false = false+1
-
     print(true," out of ", total, " -> ", true/total, " | pairs = ",p)
+
+print(result3)
+print(testlabel.values[0])
+print(agg)
