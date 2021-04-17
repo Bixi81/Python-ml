@@ -40,7 +40,7 @@ out2 = Dense(1)(x)
 model = Model(inputs=Input_1, outputs=[out1,out2])
 model.compile(optimizer = "rmsprop", loss = 'mse')
 # Add actual data here in the fit statement
-model.fit(train_data, [train_targets,train_targets2], epochs=500, batch_size=4, verbose=0, validation_split=0.8)
+model.fit(train_data, [train_targets,train_targets2], epochs=500, batch_size=4, verbose=0, validation_split=0.2)
 
 # Predict / check type and shape
 preds = np.array(model.predict(test_data))
